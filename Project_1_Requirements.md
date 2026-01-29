@@ -123,7 +123,7 @@ The application will also include a **data science component** focused on analyz
 - Clean data
 - Create a bar chart that shows which genres are most common
 - Create a bar chart that shows which genres tend to be rated highest
-  - Use a Bayesion Average: 
+  - Use a Bayesion Average and sort columns in descending order: 
   ```
    weighted_rating = (median_ratings_count / (median_ratings_count + m)) * mean_average_rating
    + (m / (median_ratings_count + m)) * mean_average_rating_all_books
