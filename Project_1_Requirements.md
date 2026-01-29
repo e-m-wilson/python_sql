@@ -125,12 +125,9 @@ The application will also include a **data science component** focused on analyz
 - Create a bar chart that shows which genres tend to be rated highest
   - Use a Bayesion Average: 
   ```
-   weighted_rating = (ratings_count / (ratings_count + m)) * average_rating
-   + (m / (ratings_count + m)) * global_average
+   weighted_rating = (median_ratings_count / (median_ratings_count + m)) * mean_average_rating
+   + (m / (median_ratings_count + m)) * mean_average_rating_all_books
    
-   average_rating = books rating
-   ratings_count = number of ratings
-   global_average = mean rating of all books
    m = minimum ratings threshold (50-100 recommended)
    ```
 - Create a scatter plot that shows if higher priced books have better ratings
