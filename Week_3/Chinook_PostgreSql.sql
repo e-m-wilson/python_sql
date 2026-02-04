@@ -25,7 +25,6 @@ DROP DATABASE IF EXISTS chinook;
 CREATE DATABASE chinook;
 
 
-\c chinook;
 
 
 /*******************************************************************************
