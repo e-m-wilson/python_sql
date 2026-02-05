@@ -45,12 +45,16 @@ CREATE TABLE IF NOT EXISTS users (
     age INT CHECK (age >= 18),
     created_at TIMESTAMP DEFAULT NOW(), -- set default values
     banned BOOLEAN,
-    last_login TIMESTAMP
+    last_login TIMESTAMP,
+    is_active BOOLEAN
 );
 
 /*
 ALTER TABLE users
 ADD COLUMN is_active BOOLEAN DEFAULT true;
+
+ALTER TABLE users 
+ALTER COLUMN email SET NOT NULL;
 
 ALTER TABLE users
 DROP CONSTRAINT users_age_check,
@@ -112,6 +116,22 @@ UPDATE users
 SET email = 'new@example.com'
 WHERE user_id = 'something';
 
+UPDATE users 
+SET 
+    email = 'new@example.com',
+    age = 24,
+    last_login = NOW()
+WHERE user_id = 'something';
+
+UPDATE users
+SET 
+    is_active = CASE 
+        WHEN banned = false THEN true
+        ELSE true 
+    END, 
+    last_login = NOW()
+WHERE user_id = 'something';
+
 /*
 UPDATE products 
 SET price = price * 1.10
@@ -171,6 +191,8 @@ SELECT * FROM users
 WHERE role IN ('admin', 'editor');
 
 -- case sensitive 
+-- % = zero or more characters
+-- _ = exactly one character
 SELECT * FROM users 
 WHERE email LIKE '%@gmail.com';
 
@@ -200,5 +222,4 @@ ORDER BY last_login ASC, created_at DESC NULLS LAST;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS orders;
 -- drops tables and any dependent tables
--- records remain for dependent tables but not parent table, weird 
 -- DROP TABLE users CASCADE;
