@@ -217,8 +217,6 @@ ORDER BY created_at DESC;
 SELECT * FROM users 
 ORDER BY last_login ASC, created_at DESC NULLS LAST;
 
-
-
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS orders;
 -- drops tables and any dependent tables
