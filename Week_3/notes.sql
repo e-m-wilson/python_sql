@@ -31,6 +31,11 @@ CHECK (
     VALUE ~* 'regex expression here to format email'
 )
 
+~ -- regex case sensitive
+~* -- regex case insensitive
+!~ -- regex does not match case sensitive
+!~* -- regex does not match case insensitive
+
 CREATE TYPE address AS (
     street TEXT,
     city TEXT,
@@ -221,3 +226,87 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS orders;
 -- drops tables and any dependent tables
 -- DROP TABLE users CASCADE;
+
+/*
+    For money NEVER use float datatypes
+    SELECT 0.1 + 0.2 = 0.3; -- false
+    floats are approximations 
+    
+    use either 
+    NUMERIC(10,2)
+
+    OR
+
+    INT -- in cents
+
+
+    BOOLEAN types
+    true, false
+    t, f
+    yes, no
+    1, 0
+
+    -- returns 0 rows even if deleted_at is NULL
+    SELECT *
+    FROM users
+    WHERE deleted_at = NULL; 
+
+    instead:
+    SELECT *
+    FROM users
+    WHERE deleted_at IS NULL; -- or IS NOT NULL
+
+    <> same as != -- the former is the official way
+
+
+    WHERE is_active -- you can just leave it at that if its a boolean
+
+
+    STRINGS
+    default to TEXT > VARCHAR -- varchar is still fine tho if you must set a max length that way
+
+    time/dates
+    default to TIMESTAMP WITH TIMEZONE
+    NOW() -- constant for whole transaction
+    clock_timestamp() -- actual current time
+
+    SELECT COUNT(*) FROM users; -- counts all including nulls
+    SELECT COUNT(column) FROM users; -- counts non-null values in that column
+
+    SELECT SUM(amount) from orders;
+    SELECT AVG(age) FROM users; -- always returns decimal
+    SELECT MIN(created_at), MAX(created_at) FROM users;
+
+    -- every selected column must be in either an aggregate function or the group by clause
+    SELECT country, COUNT(*)
+    FROM customer
+    GROUP BY country;
+
+    SELECT 
+    billing_country,
+    COUNT(*) AS customer_count,
+    AVG(total) AS avg_total,
+    MIN(invoice_date) AS first_order
+    FROM invoice
+    GROUP BY billing_country;
+
+    SELECT 
+    billing_country,
+    COUNT(*) AS customer_count,
+    AVG(total) AS avg_total,
+    MIN(invoice_date) AS first_order
+    FROM invoice
+    GROUP BY billing_country
+    HAVING COUNT(*) > 10;
+
+    SELECT 
+    billing_country,
+    COUNT(*) AS customer_count,
+    AVG(total) AS avg_total,
+    MIN(invoice_date) AS first_order
+    FROM invoice
+    WHERE invoice_date >= NOW() - INTERVAL '1 year'
+    GROUP BY billing_country
+    HAVING COUNT(*) > 10;
+
+*/
