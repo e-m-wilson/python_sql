@@ -1,6 +1,8 @@
 
 -- challenge day 1 answers
 
+SELECT * FROM customer;
+
 /*
 SELECT * 
 FROM customer

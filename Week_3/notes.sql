@@ -263,7 +263,7 @@ DROP TABLE IF EXISTS orders;
 
 
     STRINGS
-    default to TEXT > VARCHAR -- varchar is still fine tho if you must set a max length that way
+    default to TEXT > VARCHAR(n) -- varchar is still fine tho if you must set a max length that way
 
     time/dates
     default to TIMESTAMP WITH TIMEZONE
