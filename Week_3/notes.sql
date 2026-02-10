@@ -65,22 +65,6 @@ ALTER TABLE users
 DROP CONSTRAINT users_age_check,
 ADD CONSTRAINT users_age_check CHECK (age >= 21);
 
-CREATE INDEX idx_users_email ON users(email);
-
-
--- CREATE UNIQUE INDEX idx_users_email ON users(email);
-
-    CREATE INDEX idx_active_users
-    ON users(email)
-    WHERE is_active = true;
-
-    CREATE INDEX idx_users_lower_email
-    ON users (LOWER(email));
-
-    The above is required for queries that use expressions:
-    SELECT * FROM users WHERE LOWER(email) = 'test@example.com'
-*/
-
 -- note that this is short form
 -- need FOREIGN KEY clause if adding "ON" operations
 CREATE TABLE IF NOT EXISTS orders (
